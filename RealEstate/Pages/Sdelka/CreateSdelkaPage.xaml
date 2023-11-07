@@ -1,0 +1,33 @@
+﻿<Page x:Class="RealEstate.Pages.Sdelka.CreateSdelkaPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RealEstate.Pages.Sdelka"
+      mc:Ignorable="d" 
+      d:DesignHeight="290" d:DesignWidth="800"
+      Title="CreateSdelkaPage">
+
+    <StackPanel>
+        <Grid Margin="50 70 50 70">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="20" Orientation="Horizontal">
+                <TextBlock Text="Потребность*:" Width="90"/>
+                <ComboBox  Name="potreb" Width="200"  SelectedIndex="2"/>
+            </StackPanel>
+
+            <StackPanel  Grid.Column="1" Margin="20" Orientation="Horizontal">
+                <TextBlock Text="Предложение*:" Width="90"/>
+                <ComboBox Name="predl" Width="200"/>
+                
+            </StackPanel>
+
+
+        </Grid>
+        <Button Content="Добавить" Click="Popup_Click" Width="80" Style="{StaticResource PrimaryButtonStyle}" />
+    </StackPanel>
+</Page>

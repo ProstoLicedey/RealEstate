@@ -1,0 +1,922 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище nedvizhModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="area" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="middlename" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="lastname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="tel" Type="nvarchar" MaxLength="20" />
+          <Property Name="email" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Commission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DealId" Type="int" />
+          <Property Name="SellerRealtorId" Type="int" />
+          <Property Name="BuyerRealtorId" Type="int" />
+          <Property Name="CompanyCommission" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="SellerCommission" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="BuyerCommission" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Object_Nedv">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_type" Type="int" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_address" Type="int" Nullable="false" />
+          <Property Name="num_house" Type="int" />
+          <Property Name="num_kv" Type="int" />
+          <Property Name="shirina" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="dolgota" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="area" Type="float" Nullable="false" />
+          <Property Name="rooms" Type="int" />
+          <Property Name="floor" Type="int" />
+        </EntityType>
+        <EntityType Name="Potrebnost">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_client" Type="int" Nullable="false" />
+          <Property Name="id_rieltor" Type="int" Nullable="false" />
+          <Property Name="id_type" Type="int" Nullable="false" />
+          <Property Name="id_address" Type="int" />
+          <Property Name="min_price" Type="int" />
+          <Property Name="max_price" Type="int" />
+          <Property Name="min_area" Type="float" />
+          <Property Name="max_area" Type="float" />
+          <Property Name="min_rooms" Type="int" />
+          <Property Name="max_rooms" Type="int" />
+          <Property Name="min_floor" Type="int" />
+          <Property Name="max_floor" Type="int" />
+        </EntityType>
+        <EntityType Name="Predlojenie">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_client" Type="int" Nullable="false" />
+          <Property Name="id_rieltor" Type="int" Nullable="false" />
+          <Property Name="id_object" Type="int" Nullable="false" />
+          <Property Name="price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rieltor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="middlename" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="lastname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="dolya" Type="float" />
+        </EntityType>
+        <EntityType Name="Sdelka">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_potr" Type="int" Nullable="false" />
+          <Property Name="id_pred" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Type_Object">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Commissio__Buyer__4AB81AF0">
+          <End Role="Rieltor" Type="Self.Rieltor" Multiplicity="0..1" />
+          <End Role="Commission" Type="Self.Commission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rieltor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Commission">
+              <PropertyRef Name="BuyerRealtorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commissio__DealI__48CFD27E">
+          <End Role="Sdelka" Type="Self.Sdelka" Multiplicity="0..1" />
+          <End Role="Commission" Type="Self.Commission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sdelka">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Commission">
+              <PropertyRef Name="DealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commissio__Selle__49C3F6B7">
+          <End Role="Rieltor" Type="Self.Rieltor" Multiplicity="0..1" />
+          <End Role="Commission" Type="Self.Commission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rieltor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Commission">
+              <PropertyRef Name="SellerRealtorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Object_Ne__id_ad__31EC6D26">
+          <End Role="Address" Type="Self.Address" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Object_Nedv" Type="Self.Object_Nedv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Object_Nedv">
+              <PropertyRef Name="id_address" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Object_Ne__id_ty__32E0915F">
+          <End Role="Type_Object" Type="Self.Type_Object" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Object_Nedv" Type="Self.Object_Nedv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Object">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Object_Nedv">
+              <PropertyRef Name="id_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Potrebnos__id_ad__37A5467C">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Potrebnost" Type="Self.Potrebnost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Potrebnost">
+              <PropertyRef Name="id_address" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Potrebnos__id_cl__34C8D9D1">
+          <End Role="Client" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Potrebnost" Type="Self.Potrebnost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Potrebnost">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Potrebnos__id_ri__35BCFE0A">
+          <End Role="Rieltor" Type="Self.Rieltor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Potrebnost" Type="Self.Potrebnost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rieltor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Potrebnost">
+              <PropertyRef Name="id_rieltor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Potrebnos__id_ty__36B12243">
+          <End Role="Type_Object" Type="Self.Type_Object" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Potrebnost" Type="Self.Potrebnost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Object">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Potrebnost">
+              <PropertyRef Name="id_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Predlojen__id_cl__3A81B327">
+          <End Role="Client" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Predlojenie" Type="Self.Predlojenie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Predlojenie">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Predlojen__id_ob__33D4B598">
+          <End Role="Object_Nedv" Type="Self.Object_Nedv" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Predlojenie" Type="Self.Predlojenie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object_Nedv">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Predlojenie">
+              <PropertyRef Name="id_object" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Predlojen__id_ri__3B75D760">
+          <End Role="Rieltor" Type="Self.Rieltor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Predlojenie" Type="Self.Predlojenie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rieltor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Predlojenie">
+              <PropertyRef Name="id_rieltor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sdelka__id_potr__38996AB5">
+          <End Role="Potrebnost" Type="Self.Potrebnost" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sdelka" Type="Self.Sdelka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Potrebnost">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Sdelka">
+              <PropertyRef Name="id_potr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sdelka__id_pred__398D8EEE">
+          <End Role="Predlojenie" Type="Self.Predlojenie" Multiplicity="1" />
+          <End Role="Sdelka" Type="Self.Sdelka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predlojenie">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Sdelka">
+              <PropertyRef Name="id_pred" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище nedvizhModelContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commission" EntityType="Self.Commission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Object_Nedv" EntityType="Self.Object_Nedv" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Potrebnost" EntityType="Self.Potrebnost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Predlojenie" EntityType="Self.Predlojenie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rieltor" EntityType="Self.Rieltor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sdelka" EntityType="Self.Sdelka" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type_Object" EntityType="Self.Type_Object" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Commissio__Buyer__4AB81AF0" Association="Self.FK__Commissio__Buyer__4AB81AF0">
+            <End Role="Rieltor" EntitySet="Rieltor" />
+            <End Role="Commission" EntitySet="Commission" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commissio__DealI__48CFD27E" Association="Self.FK__Commissio__DealI__48CFD27E">
+            <End Role="Sdelka" EntitySet="Sdelka" />
+            <End Role="Commission" EntitySet="Commission" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commissio__Selle__49C3F6B7" Association="Self.FK__Commissio__Selle__49C3F6B7">
+            <End Role="Rieltor" EntitySet="Rieltor" />
+            <End Role="Commission" EntitySet="Commission" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Object_Ne__id_ad__31EC6D26" Association="Self.FK__Object_Ne__id_ad__31EC6D26">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Object_Nedv" EntitySet="Object_Nedv" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Object_Ne__id_ty__32E0915F" Association="Self.FK__Object_Ne__id_ty__32E0915F">
+            <End Role="Type_Object" EntitySet="Type_Object" />
+            <End Role="Object_Nedv" EntitySet="Object_Nedv" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Potrebnos__id_ad__37A5467C" Association="Self.FK__Potrebnos__id_ad__37A5467C">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Potrebnost" EntitySet="Potrebnost" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Potrebnos__id_cl__34C8D9D1" Association="Self.FK__Potrebnos__id_cl__34C8D9D1">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Potrebnost" EntitySet="Potrebnost" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Potrebnos__id_ri__35BCFE0A" Association="Self.FK__Potrebnos__id_ri__35BCFE0A">
+            <End Role="Rieltor" EntitySet="Rieltor" />
+            <End Role="Potrebnost" EntitySet="Potrebnost" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Potrebnos__id_ty__36B12243" Association="Self.FK__Potrebnos__id_ty__36B12243">
+            <End Role="Type_Object" EntitySet="Type_Object" />
+            <End Role="Potrebnost" EntitySet="Potrebnost" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Predlojen__id_cl__3A81B327" Association="Self.FK__Predlojen__id_cl__3A81B327">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Predlojenie" EntitySet="Predlojenie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Predlojen__id_ob__33D4B598" Association="Self.FK__Predlojen__id_ob__33D4B598">
+            <End Role="Object_Nedv" EntitySet="Object_Nedv" />
+            <End Role="Predlojenie" EntitySet="Predlojenie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Predlojen__id_ri__3B75D760" Association="Self.FK__Predlojen__id_ri__3B75D760">
+            <End Role="Rieltor" EntitySet="Rieltor" />
+            <End Role="Predlojenie" EntitySet="Predlojenie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sdelka__id_potr__38996AB5" Association="Self.FK__Sdelka__id_potr__38996AB5">
+            <End Role="Potrebnost" EntitySet="Potrebnost" />
+            <End Role="Sdelka" EntitySet="Sdelka" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sdelka__id_pred__398D8EEE" Association="Self.FK__Sdelka__id_pred__398D8EEE">
+            <End Role="Predlojenie" EntitySet="Predlojenie" />
+            <End Role="Sdelka" EntitySet="Sdelka" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="nedvizhModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="area" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Object_Nedv" Relationship="Self.FK__Object_Ne__id_ad__31EC6D26" FromRole="Address" ToRole="Object_Nedv" />
+          <NavigationProperty Name="Potrebnost" Relationship="Self.FK__Potrebnos__id_ad__37A5467C" FromRole="Address" ToRole="Potrebnost" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="middlename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Potrebnost" Relationship="Self.FK__Potrebnos__id_cl__34C8D9D1" FromRole="Client" ToRole="Potrebnost" />
+          <NavigationProperty Name="Predlojenie" Relationship="Self.FK__Predlojen__id_cl__3A81B327" FromRole="Client" ToRole="Predlojenie" />
+        </EntityType>
+        <EntityType Name="Commission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DealId" Type="Int32" />
+          <Property Name="SellerRealtorId" Type="Int32" />
+          <Property Name="BuyerRealtorId" Type="Int32" />
+          <Property Name="CompanyCommission" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="SellerCommission" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="BuyerCommission" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Rieltor" Relationship="Self.FK__Commissio__Buyer__4AB81AF0" FromRole="Commission" ToRole="Rieltor" />
+          <NavigationProperty Name="Sdelka" Relationship="Self.FK__Commissio__DealI__48CFD27E" FromRole="Commission" ToRole="Sdelka" />
+          <NavigationProperty Name="Rieltor1" Relationship="Self.FK__Commissio__Selle__49C3F6B7" FromRole="Commission" ToRole="Rieltor" />
+        </EntityType>
+        <EntityType Name="Object_Nedv">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_type" Type="Int32" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_address" Type="Int32" Nullable="false" />
+          <Property Name="num_house" Type="Int32" />
+          <Property Name="num_kv" Type="Int32" />
+          <Property Name="shirina" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dolgota" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="area" Type="Double" Nullable="false" />
+          <Property Name="rooms" Type="Int32" />
+          <Property Name="floor" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="Self.FK__Object_Ne__id_ad__31EC6D26" FromRole="Object_Nedv" ToRole="Address" />
+          <NavigationProperty Name="Type_Object" Relationship="Self.FK__Object_Ne__id_ty__32E0915F" FromRole="Object_Nedv" ToRole="Type_Object" />
+          <NavigationProperty Name="Predlojenie" Relationship="Self.FK__Predlojen__id_ob__33D4B598" FromRole="Object_Nedv" ToRole="Predlojenie" />
+        </EntityType>
+        <EntityType Name="Potrebnost">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_client" Type="Int32" Nullable="false" />
+          <Property Name="id_rieltor" Type="Int32" Nullable="false" />
+          <Property Name="id_type" Type="Int32" Nullable="false" />
+          <Property Name="id_address" Type="Int32" />
+          <Property Name="min_price" Type="Int32" />
+          <Property Name="max_price" Type="Int32" />
+          <Property Name="min_area" Type="Double" />
+          <Property Name="max_area" Type="Double" />
+          <Property Name="min_rooms" Type="Int32" />
+          <Property Name="max_rooms" Type="Int32" />
+          <Property Name="min_floor" Type="Int32" />
+          <Property Name="max_floor" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="Self.FK__Potrebnos__id_ad__37A5467C" FromRole="Potrebnost" ToRole="Address" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Potrebnos__id_cl__34C8D9D1" FromRole="Potrebnost" ToRole="Client" />
+          <NavigationProperty Name="Rieltor" Relationship="Self.FK__Potrebnos__id_ri__35BCFE0A" FromRole="Potrebnost" ToRole="Rieltor" />
+          <NavigationProperty Name="Type_Object" Relationship="Self.FK__Potrebnos__id_ty__36B12243" FromRole="Potrebnost" ToRole="Type_Object" />
+          <NavigationProperty Name="Sdelka" Relationship="Self.FK__Sdelka__id_potr__38996AB5" FromRole="Potrebnost" ToRole="Sdelka" />
+        </EntityType>
+        <EntityType Name="Predlojenie">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_client" Type="Int32" Nullable="false" />
+          <Property Name="id_rieltor" Type="Int32" Nullable="false" />
+          <Property Name="id_object" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Predlojen__id_cl__3A81B327" FromRole="Predlojenie" ToRole="Client" />
+          <NavigationProperty Name="Object_Nedv" Relationship="Self.FK__Predlojen__id_ob__33D4B598" FromRole="Predlojenie" ToRole="Object_Nedv" />
+          <NavigationProperty Name="Rieltor" Relationship="Self.FK__Predlojen__id_ri__3B75D760" FromRole="Predlojenie" ToRole="Rieltor" />
+          <NavigationProperty Name="Sdelka" Relationship="Self.FK__Sdelka__id_pred__398D8EEE" FromRole="Predlojenie" ToRole="Sdelka" />
+        </EntityType>
+        <EntityType Name="Rieltor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="middlename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dolya" Type="Double" />
+          <NavigationProperty Name="Commission" Relationship="Self.FK__Commissio__Buyer__4AB81AF0" FromRole="Rieltor" ToRole="Commission" />
+          <NavigationProperty Name="Commission1" Relationship="Self.FK__Commissio__Selle__49C3F6B7" FromRole="Rieltor" ToRole="Commission" />
+          <NavigationProperty Name="Potrebnost" Relationship="Self.FK__Potrebnos__id_ri__35BCFE0A" FromRole="Rieltor" ToRole="Potrebnost" />
+          <NavigationProperty Name="Predlojenie" Relationship="Self.FK__Predlojen__id_ri__3B75D760" FromRole="Rieltor" ToRole="Predlojenie" />
+        </EntityType>
+        <EntityType Name="Sdelka">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_potr" Type="Int32" Nullable="false" />
+          <Property Name="id_pred" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Commission" Relationship="Self.FK__Commissio__DealI__48CFD27E" FromRole="Sdelka" ToRole="Commission" />
+          <NavigationProperty Name="Potrebnost" Relationship="Self.FK__Sdelka__id_potr__38996AB5" FromRole="Sdelka" ToRole="Potrebnost" />
+          <NavigationProperty Name="Predlojenie" Relationship="Self.FK__Sdelka__id_pred__398D8EEE" FromRole="Sdelka" ToRole="Predlojenie" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Type_Object">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Object_Nedv" Relationship="Self.FK__Object_Ne__id_ty__32E0915F" FromRole="Type_Object" ToRole="Object_Nedv" />
+          <NavigationProperty Name="Potrebnost" Relationship="Self.FK__Potrebnos__id_ty__36B12243" FromRole="Type_Object" ToRole="Potrebnost" />
+        </EntityType>
+        <Association Name="FK__Object_Ne__id_ad__31EC6D26">
+          <End Role="Address" Type="Self.Address" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Object_Nedv" Type="Self.Object_Nedv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Object_Nedv">
+              <PropertyRef Name="id_address" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Potrebnos__id_ad__37A5467C">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Potrebnost" Type="Self.Potrebnost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Potrebnost">
+              <PropertyRef Name="id_address" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Potrebnos__id_cl__34C8D9D1">
+          <End Role="Client" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Potrebnost" Type="Self.Potrebnost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Potrebnost">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Predlojen__id_cl__3A81B327">
+          <End Role="Client" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Predlojenie" Type="Self.Predlojenie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Predlojenie">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commissio__Buyer__4AB81AF0">
+          <End Role="Rieltor" Type="Self.Rieltor" Multiplicity="0..1" />
+          <End Role="Commission" Type="Self.Commission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rieltor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Commission">
+              <PropertyRef Name="BuyerRealtorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commissio__DealI__48CFD27E">
+          <End Role="Sdelka" Type="Self.Sdelka" Multiplicity="0..1" />
+          <End Role="Commission" Type="Self.Commission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sdelka">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Commission">
+              <PropertyRef Name="DealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commissio__Selle__49C3F6B7">
+          <End Role="Rieltor" Type="Self.Rieltor" Multiplicity="0..1" />
+          <End Role="Commission" Type="Self.Commission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rieltor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Commission">
+              <PropertyRef Name="SellerRealtorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Object_Ne__id_ty__32E0915F">
+          <End Role="Type_Object" Type="Self.Type_Object" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Object_Nedv" Type="Self.Object_Nedv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Object">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Object_Nedv">
+              <PropertyRef Name="id_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Predlojen__id_ob__33D4B598">
+          <End Role="Object_Nedv" Type="Self.Object_Nedv" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Predlojenie" Type="Self.Predlojenie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object_Nedv">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Predlojenie">
+              <PropertyRef Name="id_object" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Potrebnos__id_ri__35BCFE0A">
+          <End Role="Rieltor" Type="Self.Rieltor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Potrebnost" Type="Self.Potrebnost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rieltor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Potrebnost">
+              <PropertyRef Name="id_rieltor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Potrebnos__id_ty__36B12243">
+          <End Role="Type_Object" Type="Self.Type_Object" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Potrebnost" Type="Self.Potrebnost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Object">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Potrebnost">
+              <PropertyRef Name="id_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sdelka__id_potr__38996AB5">
+          <End Role="Potrebnost" Type="Self.Potrebnost" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sdelka" Type="Self.Sdelka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Potrebnost">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Sdelka">
+              <PropertyRef Name="id_potr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Predlojen__id_ri__3B75D760">
+          <End Role="Rieltor" Type="Self.Rieltor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Predlojenie" Type="Self.Predlojenie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rieltor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Predlojenie">
+              <PropertyRef Name="id_rieltor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sdelka__id_pred__398D8EEE">
+          <End Role="Predlojenie" Type="Self.Predlojenie" Multiplicity="1" />
+          <End Role="Sdelka" Type="Self.Sdelka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predlojenie">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Sdelka">
+              <PropertyRef Name="id_pred" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="nedvizhEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Address" EntityType="Self.Address" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Commission" EntityType="Self.Commission" />
+          <EntitySet Name="Object_Nedv" EntityType="Self.Object_Nedv" />
+          <EntitySet Name="Potrebnost" EntityType="Self.Potrebnost" />
+          <EntitySet Name="Predlojenie" EntityType="Self.Predlojenie" />
+          <EntitySet Name="Rieltor" EntityType="Self.Rieltor" />
+          <EntitySet Name="Sdelka" EntityType="Self.Sdelka" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Type_Object" EntityType="Self.Type_Object" />
+          <AssociationSet Name="FK__Object_Ne__id_ad__31EC6D26" Association="Self.FK__Object_Ne__id_ad__31EC6D26">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Object_Nedv" EntitySet="Object_Nedv" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Potrebnos__id_ad__37A5467C" Association="Self.FK__Potrebnos__id_ad__37A5467C">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Potrebnost" EntitySet="Potrebnost" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Potrebnos__id_cl__34C8D9D1" Association="Self.FK__Potrebnos__id_cl__34C8D9D1">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Potrebnost" EntitySet="Potrebnost" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Predlojen__id_cl__3A81B327" Association="Self.FK__Predlojen__id_cl__3A81B327">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Predlojenie" EntitySet="Predlojenie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commissio__Buyer__4AB81AF0" Association="Self.FK__Commissio__Buyer__4AB81AF0">
+            <End Role="Rieltor" EntitySet="Rieltor" />
+            <End Role="Commission" EntitySet="Commission" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commissio__DealI__48CFD27E" Association="Self.FK__Commissio__DealI__48CFD27E">
+            <End Role="Sdelka" EntitySet="Sdelka" />
+            <End Role="Commission" EntitySet="Commission" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commissio__Selle__49C3F6B7" Association="Self.FK__Commissio__Selle__49C3F6B7">
+            <End Role="Rieltor" EntitySet="Rieltor" />
+            <End Role="Commission" EntitySet="Commission" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Object_Ne__id_ty__32E0915F" Association="Self.FK__Object_Ne__id_ty__32E0915F">
+            <End Role="Type_Object" EntitySet="Type_Object" />
+            <End Role="Object_Nedv" EntitySet="Object_Nedv" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Predlojen__id_ob__33D4B598" Association="Self.FK__Predlojen__id_ob__33D4B598">
+            <End Role="Object_Nedv" EntitySet="Object_Nedv" />
+            <End Role="Predlojenie" EntitySet="Predlojenie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Potrebnos__id_ri__35BCFE0A" Association="Self.FK__Potrebnos__id_ri__35BCFE0A">
+            <End Role="Rieltor" EntitySet="Rieltor" />
+            <End Role="Potrebnost" EntitySet="Potrebnost" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Potrebnos__id_ty__36B12243" Association="Self.FK__Potrebnos__id_ty__36B12243">
+            <End Role="Type_Object" EntitySet="Type_Object" />
+            <End Role="Potrebnost" EntitySet="Potrebnost" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sdelka__id_potr__38996AB5" Association="Self.FK__Sdelka__id_potr__38996AB5">
+            <End Role="Potrebnost" EntitySet="Potrebnost" />
+            <End Role="Sdelka" EntitySet="Sdelka" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Predlojen__id_ri__3B75D760" Association="Self.FK__Predlojen__id_ri__3B75D760">
+            <End Role="Rieltor" EntitySet="Rieltor" />
+            <End Role="Predlojenie" EntitySet="Predlojenie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sdelka__id_pred__398D8EEE" Association="Self.FK__Sdelka__id_pred__398D8EEE">
+            <End Role="Predlojenie" EntitySet="Predlojenie" />
+            <End Role="Sdelka" EntitySet="Sdelka" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище nedvizhModelContainer" CdmEntityContainer="nedvizhEntities1">
+          <EntitySetMapping Name="Address">
+            <EntityTypeMapping TypeName="nedvizhModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="area" ColumnName="area" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="nedvizhModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="middlename" ColumnName="middlename" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commission">
+            <EntityTypeMapping TypeName="nedvizhModel.Commission">
+              <MappingFragment StoreEntitySet="Commission">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DealId" ColumnName="DealId" />
+                <ScalarProperty Name="SellerRealtorId" ColumnName="SellerRealtorId" />
+                <ScalarProperty Name="BuyerRealtorId" ColumnName="BuyerRealtorId" />
+                <ScalarProperty Name="CompanyCommission" ColumnName="CompanyCommission" />
+                <ScalarProperty Name="SellerCommission" ColumnName="SellerCommission" />
+                <ScalarProperty Name="BuyerCommission" ColumnName="BuyerCommission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Object_Nedv">
+            <EntityTypeMapping TypeName="nedvizhModel.Object_Nedv">
+              <MappingFragment StoreEntitySet="Object_Nedv">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_type" ColumnName="id_type" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="id_address" ColumnName="id_address" />
+                <ScalarProperty Name="num_house" ColumnName="num_house" />
+                <ScalarProperty Name="num_kv" ColumnName="num_kv" />
+                <ScalarProperty Name="shirina" ColumnName="shirina" />
+                <ScalarProperty Name="dolgota" ColumnName="dolgota" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="rooms" ColumnName="rooms" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Potrebnost">
+            <EntityTypeMapping TypeName="nedvizhModel.Potrebnost">
+              <MappingFragment StoreEntitySet="Potrebnost">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="id_rieltor" ColumnName="id_rieltor" />
+                <ScalarProperty Name="id_type" ColumnName="id_type" />
+                <ScalarProperty Name="id_address" ColumnName="id_address" />
+                <ScalarProperty Name="min_price" ColumnName="min_price" />
+                <ScalarProperty Name="max_price" ColumnName="max_price" />
+                <ScalarProperty Name="min_area" ColumnName="min_area" />
+                <ScalarProperty Name="max_area" ColumnName="max_area" />
+                <ScalarProperty Name="min_rooms" ColumnName="min_rooms" />
+                <ScalarProperty Name="max_rooms" ColumnName="max_rooms" />
+                <ScalarProperty Name="min_floor" ColumnName="min_floor" />
+                <ScalarProperty Name="max_floor" ColumnName="max_floor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Predlojenie">
+            <EntityTypeMapping TypeName="nedvizhModel.Predlojenie">
+              <MappingFragment StoreEntitySet="Predlojenie">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="id_rieltor" ColumnName="id_rieltor" />
+                <ScalarProperty Name="id_object" ColumnName="id_object" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rieltor">
+            <EntityTypeMapping TypeName="nedvizhModel.Rieltor">
+              <MappingFragment StoreEntitySet="Rieltor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="middlename" ColumnName="middlename" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="dolya" ColumnName="dolya" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sdelka">
+            <EntityTypeMapping TypeName="nedvizhModel.Sdelka">
+              <MappingFragment StoreEntitySet="Sdelka">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_potr" ColumnName="id_potr" />
+                <ScalarProperty Name="id_pred" ColumnName="id_pred" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="nedvizhModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type_Object">
+            <EntityTypeMapping TypeName="nedvizhModel.Type_Object">
+              <MappingFragment StoreEntitySet="Type_Object">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

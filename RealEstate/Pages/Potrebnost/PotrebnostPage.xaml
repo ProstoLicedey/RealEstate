@@ -1,0 +1,57 @@
+﻿<Page x:Class="RealEstate.Pages.Potrebnost.PotrebnostPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RealEstate.Pages.Potrebnost"
+      mc:Ignorable="d" 
+      d:DesignHeight="290" d:DesignWidth="800"
+      Title="PotrebnostPage">
+
+    <StackPanel>
+      
+            <Button HorizontalAlignment="Right" 
+                    Margin="10"
+                    Content="Добавить"
+                
+                    Style="{StaticResource PrimaryButtonStyle}" Click="Button_Click"
+                    />
+
+        <DataGrid Name="DbGridModel" 
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True"  
+                   Height="235"
+                 >
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding id}" Header="Id"/>
+                <DataGridTextColumn Binding="{Binding Client.middlename}" Header="Клиент"/>
+                <DataGridTextColumn Binding="{Binding  Rieltor.middlename}" Header="Риэтор"/>
+                <DataGridTextColumn Binding="{Binding Type_Object.name}" Header="Тип" />
+                <DataGridTextColumn Binding="{Binding Address.name}" Header="Адрес" />
+                <DataGridTextColumn Binding="{Binding min_price}" Header="мин цена" />
+                <DataGridTextColumn Binding="{Binding max_price}" Header="макс цена" />
+                <DataGridTextColumn Binding="{Binding  min_area}" Header="мин пл." />
+                <DataGridTextColumn Binding="{Binding max_area}" Header="макс пл." />
+                <DataGridTextColumn Binding="{Binding min_rooms}" Header="мин комн." />
+                <DataGridTextColumn Binding="{Binding max_rooms}" Header="макс комн." />
+                <DataGridTextColumn Binding="{Binding min_floor}" Header="мин эт." />
+                <DataGridTextColumn Binding="{Binding max_floor}" Header="макс этaж." />
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Изменить" Click="Update_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Удалить" Click="Delete_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</Page>

@@ -1,0 +1,60 @@
+﻿<Page x:Class="RealEstate.Pages.Client.ClientPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RealEstate.Pages.Client"
+         mc:Ignorable="d" 
+      Height="290"
+   d:DesignWidth="800"
+       
+      Title="Client">
+    <StackPanel>
+        <StackPanel Margin="10" Orientation="Horizontal">
+            <TextBlock Text="Поиск:" FontSize="18"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox
+              
+                    x:Name="PoiskTB"
+                    Width="200"
+                    Height="35"
+                    FontSize="18"
+            SelectionChanged="TbPoisk"
+                />
+
+            <Button HorizontalAlignment="Right" 
+                    Margin="380 0 0  0"
+                    Content="Добавить"
+                
+                    Style="{StaticResource PrimaryButtonStyle}" Click="Button_Click"
+                    />
+        </StackPanel>
+        <DataGrid Name="DbGridModel" 
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True"  
+                   Height="235"
+                 >
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding id}" Header="Id"/>
+                <DataGridTextColumn Binding="{Binding lastname}" Header="Фамилия"/>
+                <DataGridTextColumn Binding="{Binding firstname}" Header="Имя"/>
+                <DataGridTextColumn Binding="{Binding middlename}" Header="Отчество"/>
+                <DataGridTextColumn Binding="{Binding tel}" Header="Телефон"/>
+                <DataGridTextColumn Binding="{Binding email}" Header="Почта"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Изменить" Click="Update_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Удалить" Click="Delete_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</Page>

@@ -1,0 +1,24 @@
+﻿<Page x:Class="RealEstate.Pages.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RealEstate.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainPage">
+
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+            <Button Content="Клиенты" Style="{StaticResource CustomButtonStyle}" Click="Button_Click" />
+            <Button Content="Риэлторы" Style="{StaticResource CustomButtonStyle}" Click="Button_Click_1"/>
+            <Button Content="Объекты" Style="{StaticResource CustomButtonStyle}" Click="Button_Click_2"/>
+            <Button Content="Потребности" Style="{StaticResource CustomButtonStyle}" Click="Button_Click_3"/>
+            <Button Content="Предложения" Style="{StaticResource CustomButtonStyle}" Click="Button_Click_4"/>
+            <Button Content="Сделки" Style="{StaticResource CustomButtonStyle}" Click="Button_Click_5"/>
+        </StackPanel>
+       
+        <Frame  x:Name="ContentFrame"/>
+        
+    </StackPanel>
+</Page>
